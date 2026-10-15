@@ -11,16 +11,31 @@
  */
 class Solution {
 public:
+
+    bool check(TreeNode* left, TreeNode* right) {
+
+        // Both nodes are NULL
+        if (left == nullptr && right == nullptr)
+            return true;
+
+        // Only one node is NULL
+        if (left == nullptr || right == nullptr)
+            return false;
+
+        // Values are different
+        if (left->val != right->val)
+            return false;
+
+        // Cross comparison
+        return check(left->left, right->right) &&
+               check(left->right, right->left);
+    }
+
     bool isSymmetric(TreeNode* root) {
-        return (root == NULL) || sym(root -> right ,root-> left);
+         if (root == nullptr)
+            return true;
+
+        return check(root->left, root->right);
+        
     }
-
-    bool sym(TreeNode* right, TreeNode* left){
-        if(right == NULL || left == NULL) return (left==  right);
-
-        if(right->val != left->val) return false;
-        return sym(left-> left , right ->right) &&
-        sym(left ->right, right ->left);
-    }
-
 };
